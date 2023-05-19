@@ -1,18 +1,18 @@
 import { lazy, memo, Suspense, useState } from 'react'
 import Block from './common/components/Block'
 import Button from './common/components/Button'
+import LinearProgress from './common/components/LinearProgress'
 import Text from './common/components/Text'
 
 const Registration = lazy(() => import('./common/components/Registration'))
+const Authorization = lazy(() => import('./common/components/Authorization'))
 
 function App() {
   const [openRegistrationForm, setOpenRegistrationForm] = useState(false)
   const [openAuthorizationForm, setOpenAuthorizationForm] = useState(false)
 
-  const Authorization = lazy(() => import('./common/components/Authorization'))
-
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LinearProgress />}>
       <Block
         display="flex"
         flexDirection="row"
