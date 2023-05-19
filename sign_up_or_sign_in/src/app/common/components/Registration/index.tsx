@@ -41,6 +41,13 @@ function Registration(props: RegistrationProps): JSX.Element {
     []
   )
 
+  const handleClose = useCallback(() => {
+    setOpenRegistrationForm(false)
+    setTimeout(() => {
+      setErrorMessage('')
+    }, 1000)
+  }, [setOpenRegistrationForm])
+
   const formik = useFormik<RegistrationData>({
     initialValues: { ...EMPTY_REGISTRATION },
     validate,
@@ -88,7 +95,7 @@ function Registration(props: RegistrationProps): JSX.Element {
   }, [values])
 
   return (
-    <Dialog keepMounted={false} open={open} fullWidth>
+    <Dialog open={open} onClose={handleClose} fullWidth keepMounted>
       <Block
         display="flex"
         flexDirection="row"
@@ -96,12 +103,7 @@ function Registration(props: RegistrationProps): JSX.Element {
         marginR="s"
         marginT="s"
       >
-        <IconButton
-          onClick={() => {
-            setOpenRegistrationForm(false)
-            setErrorMessage('')
-          }}
-        >
+        <IconButton onClick={handleClose}>
           <CloseIcon />
         </IconButton>
       </Block>

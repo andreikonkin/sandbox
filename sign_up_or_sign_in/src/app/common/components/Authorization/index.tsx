@@ -34,10 +34,18 @@ function Authorization(props: AuthorizationProps): JSX.Element {
 
   const { handleSubmit, handleReset } = formik
 
+  const handleClose = useCallback(() => {
+    setOpenAuthorizationForm(false)
+    setTimeout(() => {
+      setFormVariant('sign in')
+    }, 1000)
+  }, [setOpenAuthorizationForm])
+
   return (
     <Dialog
-      keepMounted={false}
       open={open}
+      onClose={handleClose}
+      keepMounted
       fullWidth
       PaperProps={{ style: { maxWidth: '400px' } }}
     >
@@ -48,7 +56,7 @@ function Authorization(props: AuthorizationProps): JSX.Element {
         marginR="s"
         marginT="s"
       >
-        <IconButton onClick={() => setOpenAuthorizationForm(false)}>
+        <IconButton onClick={handleClose}>
           <CloseIcon />
         </IconButton>
       </Block>
