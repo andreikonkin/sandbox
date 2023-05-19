@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import { useCallback, useState } from 'react'
 import Block from '../Block'
-import Dialog from '../Dialog'
+import Dialog, { HandleClose } from '../Dialog'
 import { CloseIcon } from '../Icon'
 import IconButton from '../IconButton'
 import Text from '../Text'
@@ -32,14 +32,21 @@ function Authorization(props: AuthorizationProps): JSX.Element {
     },
   })
 
-  const { handleSubmit, handleReset } = formik
+  const { handleSubmit, handleReset, resetForm } = formik
 
-  const handleClose = useCallback(() => {
-    setOpenAuthorizationForm(false)
-    setTimeout(() => {
-      setFormVariant('sign in')
-    }, 1000)
-  }, [setOpenAuthorizationForm])
+  const handleClose = useCallback<HandleClose>(
+    (_, reason) => {
+      if (reason === 'backdropClick') {
+        return
+      }
+      setOpenAuthorizationForm(false)
+      setTimeout(() => {
+        setFormVariant('sign in')
+        resetForm({ values: { ...EMPTY_AUTHORIZATION } })
+      }, 500)
+    },
+    [setOpenAuthorizationForm, resetForm]
+  )
 
   return (
     <Dialog
@@ -56,7 +63,7 @@ function Authorization(props: AuthorizationProps): JSX.Element {
         marginR="s"
         marginT="s"
       >
-        <IconButton onClick={handleClose}>
+        <IconButton onClick={() => handleClose({}, 'escapeKeyDown')}>
           <CloseIcon />
         </IconButton>
       </Block>

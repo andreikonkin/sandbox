@@ -9,7 +9,7 @@ import {
 } from '../../utils'
 import Block from '../Block'
 import Button from '../Button'
-import Dialog from '../Dialog'
+import Dialog, { HandleClose } from '../Dialog'
 import { CloseIcon, MailOutline } from '../Icon'
 import IconButton from '../IconButton'
 import PasswordField from '../PasswordField'
@@ -40,13 +40,6 @@ function Registration(props: RegistrationProps): JSX.Element {
     (values: RegistrationData) => getErrors(values),
     []
   )
-
-  const handleClose = useCallback(() => {
-    setOpenRegistrationForm(false)
-    setTimeout(() => {
-      setErrorMessage('')
-    }, 1000)
-  }, [setOpenRegistrationForm])
 
   const formik = useFormik<RegistrationData>({
     initialValues: { ...EMPTY_REGISTRATION },
@@ -87,6 +80,19 @@ function Registration(props: RegistrationProps): JSX.Element {
     []
   )
 
+  const handleClose = useCallback<HandleClose>(
+    (_, reason) => {
+      if (reason === 'backdropClick') {
+        return
+      }
+      setOpenRegistrationForm(false)
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 500)
+    },
+    [setOpenRegistrationForm]
+  )
+
   useEffect(() => {
     setPasswordContainNumber(numberRegex(values.password))
     setPasswordContainLowercase(lowercaseRegex(values.password))
@@ -103,7 +109,7 @@ function Registration(props: RegistrationProps): JSX.Element {
         marginR="s"
         marginT="s"
       >
-        <IconButton onClick={handleClose}>
+        <IconButton onClick={() => handleClose({}, 'escapeKeyDown')}>
           <CloseIcon />
         </IconButton>
       </Block>
