@@ -26,9 +26,13 @@ function Authorization(props: AuthorizationProps): JSX.Element {
   const formik = useFormik<AuthorizationData>({
     initialValues: { ...EMPTY_AUTHORIZATION },
     validate,
-    onSubmit: async (values: AuthorizationData, { resetForm }) => {
-      setErrorMessage(`Authorization of ${values.email}`)
-      resetForm({ values: { ...EMPTY_AUTHORIZATION } })
+    onSubmit: (values: AuthorizationData, { resetForm }) => {
+      try {
+        setErrorMessage(`Authorization of ${values.email}`)
+        resetForm({ values: { ...EMPTY_AUTHORIZATION } })
+      } catch (_) {
+        setErrorMessage(`some error`)
+      }
     },
   })
 
@@ -40,6 +44,7 @@ function Authorization(props: AuthorizationProps): JSX.Element {
         return
       }
       setOpenAuthorizationForm(false)
+      setErrorMessage('')
       setTimeout(() => {
         setFormVariant('sign in')
         resetForm({ values: { ...EMPTY_AUTHORIZATION } })
@@ -82,7 +87,7 @@ function Authorization(props: AuthorizationProps): JSX.Element {
             setFormVariant={setFormVariant}
             errorMessage={errorMessage}
             formik={formik}
-            setOpenAuthorizationForm={setOpenAuthorizationForm}
+            handleClose={handleClose}
             setOpenRegistrationForm={setOpenRegistrationForm}
           />
         ) : (

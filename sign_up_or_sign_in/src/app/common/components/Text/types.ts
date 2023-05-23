@@ -10,7 +10,7 @@ export type TextProps = {
 
 export type TextSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl'
 
-type FontColor = 'primary' | 'secondary' | 'success' | 'alert' | 'white'
+type FontColor = 'primary' | 'secondary' | 'success' | 'alert'
 
 export type FontSizeRecord = Readonly<
   Record<TextSize, React.CSSProperties['fontSize']>

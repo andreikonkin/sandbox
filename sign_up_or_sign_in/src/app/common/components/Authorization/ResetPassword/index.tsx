@@ -49,9 +49,7 @@ export const ResetPassword = memo((props: ResetPasswordProps) => {
         marginV="l"
       >
         <Button size="large" type="submit" disabled={isSubmitting}>
-          <Text size="m" fontColor="white">
-            Send instructions
-          </Text>
+          <Text size="m">Send instructions</Text>
         </Button>
       </Block>
       {errorMessage && (

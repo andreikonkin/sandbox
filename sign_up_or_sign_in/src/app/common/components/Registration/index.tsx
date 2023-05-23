@@ -45,10 +45,14 @@ function Registration(props: RegistrationProps): JSX.Element {
     initialValues: { ...EMPTY_REGISTRATION },
     validate,
     onSubmit: async (values: RegistrationData, { resetForm }) => {
-      setErrorMessage(`Registration of: username: ${values.username}`)
-      resetForm({
-        values: { ...EMPTY_REGISTRATION },
-      })
+      try {
+        setErrorMessage(`Registration of: username: ${values.username}`)
+        resetForm({
+          values: { ...EMPTY_REGISTRATION },
+        })
+      } catch (_) {
+        setErrorMessage(`some error`)
+      }
     },
   })
 
@@ -86,6 +90,7 @@ function Registration(props: RegistrationProps): JSX.Element {
         return
       }
       setOpenRegistrationForm(false)
+      setErrorMessage('')
       setTimeout(() => {
         setErrorMessage('')
       }, 500)

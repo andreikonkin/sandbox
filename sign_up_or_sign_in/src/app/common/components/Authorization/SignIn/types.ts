@@ -1,4 +1,5 @@
 import { FormikErrors, FormikTouched } from 'formik'
+import { HandleClose } from '../../Dialog'
 import { AuthorizationData, FormVariant } from '../types'
 
 export type SignInProps = {
@@ -12,6 +13,6 @@ export type SignInProps = {
   }
   setFormVariant: React.Dispatch<React.SetStateAction<FormVariant>>
   errorMessage: string
-  setOpenAuthorizationForm(value: boolean): void
+  handleClose: HandleClose
   setOpenRegistrationForm(value: boolean): void
 }

@@ -15,5 +15,4 @@ export const FONT_COLORS: FontColorRecord = Object.freeze({
   secondary: '#00000005',
   success: '#00a900',
   alert: '#eb1234',
-  white: '#FFFFFF',
 })

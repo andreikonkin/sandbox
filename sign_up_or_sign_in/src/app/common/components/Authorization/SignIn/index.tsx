@@ -12,7 +12,7 @@ export const SignIn = memo((props: SignInProps) => {
     formik,
     errorMessage,
     setFormVariant,
-    setOpenAuthorizationForm,
+    handleClose,
     setOpenRegistrationForm,
   } = props
   const { values, errors, touched, handleBlur, handleChange, isSubmitting } =
@@ -95,7 +95,7 @@ export const SignIn = memo((props: SignInProps) => {
         <Button
           variant="text"
           onClick={() => {
-            setOpenAuthorizationForm(false)
+            handleClose({}, 'escapeKeyDown')
             setOpenRegistrationForm(true)
           }}
         >
