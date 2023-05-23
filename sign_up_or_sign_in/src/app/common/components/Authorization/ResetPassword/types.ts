@@ -1,4 +1,4 @@
-import { FormikErrors, FormikTouched } from 'formik'
+import { FormikErrors, FormikState, FormikTouched } from 'formik'
 import { AuthorizationData } from '../types'
 
 export type ResetPasswordProps = {
@@ -8,7 +8,7 @@ export type ResetPasswordProps = {
     touched: FormikTouched<AuthorizationData>
     handleBlur: (e: React.FocusEvent<unknown>) => void
     handleChange: (e: React.ChangeEvent<unknown>) => void
-    isSubmitting: boolean
+    isSubmitting: FormikState<AuthorizationData>['isSubmitting']
   }
   errorMessage: string
 }
